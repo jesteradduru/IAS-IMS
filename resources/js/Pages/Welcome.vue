@@ -23,7 +23,7 @@ defineProps({
             </template>
         </div>
 
-        <div class="text-3xl font-bold text-red-600">IAS Inspection and Monitoring System</div>
+        <div class="text-3xl font-bold text-red-600 ">IAS Inspection and Monitoring System</div>
 
         
     </div>

@@ -7,6 +7,7 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import SideNavigation from '@/Components/SideNavigation.vue';
 
 defineProps({
     title: String,
@@ -36,7 +37,7 @@ const logout = () => {
         <div class="min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
                         <div class="flex">
                             <!-- Logo -->
@@ -48,9 +49,7 @@ const logout = () => {
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
-                                </NavLink>
+                                <div class="flex flex-col justify-center"><div class="font-black text-xl">IAS Inspection and Monitoring System</div></div>
                             </div>
                         </div>
 
@@ -283,8 +282,14 @@ const logout = () => {
             </header>
 
             <!-- Page Content -->
-            <main>
-                <slot />
+            <main class="md:grid grid-cols-12 gap-5">
+                <section class="col-span-2">
+                    <SideNavigation />
+                </section>
+                <section class="col-span-10">
+                    <slot />
+                </section>
+                
             </main>
         </div>
     </div>
