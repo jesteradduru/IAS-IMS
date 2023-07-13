@@ -18,16 +18,20 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->foreignIdFor(InspectingOffice::class, 'inspecting_office_id')->constrained('users');
+            $table->foreignIdFor(InspectingOffice::class, 'inspecting_office_id')->constrained('inspecting_offices');
             $table->foreignIdFor(User::class, 'by_user_id');
-            $table->unsignedBigInteger('nr');
             $table->dateTime('date_time');
             $table->foreignIdFor(Unit::class, 'unit_id')->constrained('units');
-            $table->longText('address');
-            $table->unsignedBigInteger('ts');
+            $table->longText('street');
+            $table->longText('barangay');
+            $table->longText('municipality');
+            $table->longText('province');
+            $table->longText('region');
             $table->unsignedBigInteger('ap');
             $table->unsignedBigInteger('aa');
-            $table->unsignedBigInteger('dispatch');
+            $table->unsignedBigInteger('ua');
+            $table->text('type');
+            $table->text('special_category');
         });
     }
 

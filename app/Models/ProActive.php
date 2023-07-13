@@ -11,7 +11,7 @@ class ProActive extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['inspecting_office_id', 'nr', 'date_time', 'unit_id', 'address', 'ts', 'ap', 'aa', 'dispatch'];
+    protected $fillable = ['inspecting_office_id', 'date_time', 'unit_id', 'street', 'barangay', 'municipality', 'province', 'region',  'ap', 'aa', 'ua', 'type', 'special_category'];
 
     public function encoder() : BelongsTo {
         return $this->belongsTo(User::class, 'by_user_id');

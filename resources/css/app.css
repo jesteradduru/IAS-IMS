@@ -5,3 +5,49 @@
 [x-cloak] {
     display: none;
 }
+
+
+@layer components {
+    .label {
+        @apply text-gray-600 mb-1 block w-full
+    }
+    .input-text{
+        @apply rounded-md text-gray-600 w-full block bg-gray-100 border border-gray-300   focus:border-0 
+    }
+    .input-error{
+        @apply text-red-500 block w-full font-light text-sm
+    }
+    .btn-primary {
+        @apply bg-indigo-600 px-2 py-1 rounded-md text-gray-100  hover:bg-indigo-700 hover:text-gray-300 cursor-pointer
+    }
+    .input-range{
+        @apply w-full appearance-none bg-gray-200 dark:bg-gray-600 rounded-md cursor-pointer
+    }
+
+    .dropdown{
+        @apply relative
+        
+    }
+    .dropdown-body{
+        @apply absolute
+    }
+    .box{
+        @apply p-4 shadow rounded-md border-2 border-gray-200    }
+    .box .header{
+        @apply text-gray-500 mb-1
+    }
+    .input-select {
+        @apply rounded-md text-gray-600 w-full block bg-gray-100 border border-gray-300   focus:border-0 
+    }
+    .input-filter-l {
+        @apply placeholder:text-gray-400 dark:placeholder:text-gray-600 border border-gray-200 dark:border-gray-700 rounded-t-md rounded-l-md rounded-b-md rounded-r-none text-sm font-medium text-gray-600 dark:text-gray-400 dark:bg-gray-800
+    }
+    
+    .input-filter-r {
+        @apply placeholder:text-gray-400 dark:placeholder:text-gray-600 border border-l-0 border-gray-200 dark:border-gray-700 rounded-t-md rounded-l-none rounded-b-none rounded-r-md text-sm font-medium text-gray-600 dark:text-gray-400 dark:bg-gray-800
+    }
+    
+    .btn-normal {
+        @apply bg-gray-600 hover:bg-gray-500 text-white font-medium p-2 rounded-md
+    }
+}
