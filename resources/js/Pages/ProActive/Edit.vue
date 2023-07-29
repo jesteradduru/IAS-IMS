@@ -1,14 +1,14 @@
 <template>
-    <AppLayout title="Inspection | Create">
+    <AppLayout title="Proactive | Create">
         <div class="box mx-4">
-            <div class="text-2xl mb-2">Inspection | Create</div>
-            <form @submit.prevent="create">
+            <div class="text-2xl mb-2">Inspection | Edit</div>
+            <form @submit.prevent="update">
                 <div class="grid grid-cols-6 gap-4">
                     <div class="col-span-6">
                         <label class="label">Inspecting Office/Unit</label>
                         <select name="" class="input-select" id="" v-model="form.inspecting_office_id">
                             <option value=""></option>
-                            <option v-for="office in inspecting_offices" :value="office.id">{{ office.name }}</option>
+                            <option v-for="office in inspecting_offices" :value="office.id" >{{ office.name }}</option>
                         </select>
                         <div v-if="form.errors.inspecting_office_id" class="input-error">{{ form.errors.inspecting_office_id
                         }}</div>
@@ -16,7 +16,8 @@
 
                     <div class="col-span-2">
                         <label class="label">DATE AND TIME</label>
-                        <input v-model.number="form.date_time" type="datetime-local" class="input-text" @change="onChangeDateTime" />
+                        <input v-model.number="form.date_time" type="datetime-local" class="input-text"
+                            @change="onChangeDateTime" />
                         <div v-if="form.errors.date_time" class="input-error">{{ form.errors.date_time }}</div>
                     </div>
 
@@ -32,18 +33,15 @@
                         <InputLabel>Type</InputLabel>
                         <div class="flex gap-4 mt-2">
                             <div class="flex gap-1 items-center">
-                                <input name="type" type="radio" id="spot" value="spot"
-                                    v-model="form.type" checked />
+                                <input name="type" type="radio" id="spot" value="spot" v-model="form.type" checked />
                                 <label for="spot">SPOT</label>
                             </div>
                             <div class="flex gap-1 items-center">
-                                <input name="type" type="radio" id="proactive" value="proactive"
-                                    v-model="form.type" />
+                                <input name="type" type="radio" id="proactive" value="proactive" v-model="form.type" />
                                 <label for="proactive">PROACTIVE</label>
                             </div>
                             <div class="flex gap-1 items-center">
-                                <input name="type" type="radio" id="special" value="special"
-                                    v-model="form.type" />
+                                <input name="type" type="radio" id="special" value="special" v-model="form.type" />
                                 <label for="special">SPECIAL</label>
                             </div>
                         </div>
@@ -52,8 +50,8 @@
                         <InputLabel>Choose Category</InputLabel>
                         <div class="flex gap-4 mt-2">
                             <div class="flex gap-1 items-center">
-                                <input name="category" type="radio" id="local" value="local"
-                                    v-model="form.special_category" checked />
+                                <input name="category" type="radio" id="local" value="local" v-model="form.special_category"
+                                    checked />
                                 <label for="local">LOCAL EVENTS</label>
                             </div>
                             <div class="flex gap-1 items-center">
@@ -85,8 +83,8 @@
 
 
                     <div class="col-span-6 flex gap-2">
-                        <button class="btn-normal" @click="back">Back</button>
-                        <button class="btn-primary" type="submit">Create</button>
+                        <button class="btn-normal" @click="back" type="submit">Back</button>
+                        <button class="btn-primary" type="submit">Update</button>
                     </div>
                 </div>
             </form>
@@ -98,37 +96,35 @@
 import { useForm } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Address from '@/Components/Address.vue';
-import InputLabel from '@/Components/InputLabel.vue';
 
 const props = defineProps({
     inspecting_offices: Object,
     units: Object,
+    data: Object
 })
 
 const form = useForm({
-    inspecting_office_id: null,
-    date_time: '',
-    unit_id: null,
-    street: null,
-    barangay: null,
-    municipality: null,
-    province: null,
-    region: null,
-    ap: null,
-    aa: null,
-    ua: null,
-    type: 'spot',
-    special_category: null
+    inspecting_office_id: props.data.inspecting_office_id,
+    date_time: props.data.date_time,
+    unit_id: props.data.unit_id,
+    street: props.data.street,
+    barangay: props.data.barangay,
+    municipality: props.data.municipality,
+    province: props.data.province,
+    region: props.data.region,
+    ap: props.data.ap,
+    aa: props.data.aa,
+    ua: props.data.ua,
+    type: props.data.type,
+    special_category: props.data.special_category
 });
 
-const create = () => form.post(route('inspection.store'));
+const update = () => form.put(route('inspection.update', {inspection: props.data.id}));
 
 const onChangeDateTime = (e) => {
     form.date_time = e.target.value
 }
 
-const back = () => {
-    history.back()
-}
+const back = () => history.back()
 
 </script>

@@ -1,6 +1,10 @@
 <?php
 
-use App\Http\Controllers\ProActive;
+use App\Http\Controllers\AbsentPersonnelController;
+use App\Http\Controllers\CovidInfractionController;
+use App\Http\Controllers\ProActiveController;
+use App\Http\Controllers\TamangBihisController;
+use App\Http\Controllers\UnitInfractionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,7 +39,13 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::resource('proactive', ProActive::class);
+    Route::resource('inspection', ProActiveController::class);
+    Route::resource('absent_personnel', AbsentPersonnelController::class);
+    Route::resource('tamang_bihis', TamangBihisController::class)->parameters([
+        'tamang_bihis' => 'tamang_bihis'
+    ]);
+    Route::resource('unit_infraction', UnitInfractionController::class);
+    Route::resource('covid_infraction', CovidInfractionController::class);
 
 
 });

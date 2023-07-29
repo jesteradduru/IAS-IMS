@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CovidInfraction;
 use App\Models\InspectingOffice;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 
-class ProActive extends Controller
+class CovidInfractionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return inertia('ProActive/Index', []);
+        return inertia('CovidInfraction/Index', [
+            'data' => CovidInfraction::with(['inspecting_office', 'unit'])->latest()->paginate(10),
+            'page_name' => 'Covid 19 Infractions'
+        ]);
     }
 
     /**
@@ -21,9 +25,10 @@ class ProActive extends Controller
      */
     public function create()
     {
-        return inertia('ProActive/Create', [
+        return inertia('CovidInfraction/Create', [
             "inspecting_offices" => InspectingOffice::get(),
-            "units" => Unit::get()
+            "units" => Unit::get(),
+            "page_name" => 'Covid Infraction'
         ]);
     }
 
@@ -32,24 +37,16 @@ class ProActive extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         $validate = $request->validate([
-            "inspecting_office_id" => "int|required|max:255",
-            "date_time" => "required",
+            "inspecting_office_id" => "int|required",
             "unit_id" => "int|required",
-            "street" => "string|required",
-            "barangay" => "string|required",
-            "municipality" => "string|required",
-            "province" => "string|required",
-            "region" => "string|required",
-            "type" => "string|required",
-            "special_category" => "string",
-            "ap" => "integer|required|max:1040|min:1",
-            "aa" => "integer|required|max:1040|min:1",
-            "ua" => "integer|required|max:1040|min:1"
+            "date_time" => "required",
+            "fullname" => "string|required",
+            "infractions_noted" => "string|required",
+            "status" => "string",
         ]);
 
-        $request->user()->proactive()->create($validate);
+        $request->user()->covid_infraction()->create($validate);
 
         return redirect()->back()->with('success', 'Entry added successfully!');
     }
@@ -81,8 +78,10 @@ class ProActive extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(CovidInfraction $covid_infraction)
     {
-        //
+        $covid_infraction->delete();
+
+        return redirect()->back()->with('success', 'Entry deleted successfully!');
     }
 }

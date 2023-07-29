@@ -1,9 +1,11 @@
 <template>
-    <AppLayout title="ProActive">
-        <template #page-title>ProActive</template>
-        <a class="btn-primary" :href="route('proactive.create')">Add</a>
-
+    <AppLayout title="Inspections">
+        <template #page-title>Types of Inspection</template>
         <div class="overflow-x-auto mt-4 text-sm">
+            <div class="flex items-center justify-between">
+                <Filters />
+                <a class="btn-success" :href="route('inspection.create')">Add Inspection</a>
+            </div>
             <table class="min-w-full border border-indigo-200">
                 <thead class="bg-gray-200  border-gray-400">
                     <tr>
@@ -23,26 +25,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td class="px-4 py-2 border">Data 1</td>
-                    <td class="px-4 py-2 border">Data 2</td>
-                    <td class="px-4 py-2 border">Data 3</td>
-                    <td class="px-4 py-2 border">Data 1</td>
-                    <td class="px-4 py-2 border">Data 2</td>
-                    <td class="px-4 py-2 border">Data 3</td>
-                    <td class="px-4 py-2 border">Data 1</td>
-                    <td class="px-4 py-2 border">Data 2</td>
-                    <td class="px-4 py-2 border">Data 3</td>
-                    <td class="px-4 py-2 border">
-                        <div class="flex gap-2">
-                            <button class="btn-normal">Edit</button>
-                            <button class="btn-normal">Delete</button>
-                        </div>
-                    </td>
-                </tr>
-                <!-- Add more rows as needed -->
+                    <tr v-for="(item, index) in props.data.data">
+                        <td class="px-4 py-2 border">{{ item.inspecting_office?.name }}</td>
+                        <td class="px-4 py-2 border">{{ item.id }}</td>
+                        <td class="px-4 py-2 border">{{ item.date_time }}</td>
+                        <td class="px-4 py-2 border">{{ item.unit?.name }}</td>
+                        <td class="px-4 py-2 border">{{ getAddress({
+                            zone: item.street, brgy: item.barangay, city:
+                                item.municipality, province: item.province, region: item.region
+                        }) }}</td>
+                        <td class="px-4 py-2 border">{{ item.ap }}</td>
+                        <td class="px-4 py-2 border">{{ item.aa }}</td>
+                        <td class="px-4 py-2 border">{{ item.ua }}</td>
+                        <td class="px-4 py-2 border">{{ item.ap + item.aa + item.ua }}</td>
+                        <td class="px-4 py-2 border">
+                            <div class="flex gap-2">
+                                <a :href="route('inspection.edit', { inspection: item.id })" class="btn-normal">Edit</a>
+                                <Link :href="route('inspection.destroy', { inspection: item.id })" method="delete" as="button" class="btn-danger">Delete</Link>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Add more rows as needed -->
                 </tbody>
             </table>
+            <Pagination :links="props.data.links" />
         </div>
 
     </AppLayout>
@@ -50,5 +56,20 @@
 
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
+import { Address } from '@/Helpers/Address/addresses';
+import Pagination from '@/Components/UI/Pagination.vue'
+import { Link } from '@inertiajs/vue3';
+import Filters from '@/Pages/ProActive/Index/Components/Filters.vue'
+
+const props = defineProps({
+    data: Object
+})
+
+
+const getAddress = (addressData) => {
+    const { zone, brgy, city, province, region } = addressData
+    const address = new Address(zone, brgy, city, province, region)
+    return address.getFullAddress()
+}
 
 </script>

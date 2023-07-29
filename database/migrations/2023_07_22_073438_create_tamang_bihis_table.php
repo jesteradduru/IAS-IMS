@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\InspectingOffice;
+use App\Models\TamangBihisInfraction;
 use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -14,7 +15,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pro_actives', function (Blueprint $table) {
+        Schema::create('tamang_bihis', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
@@ -22,16 +23,8 @@ return new class extends Migration
             $table->foreignIdFor(User::class, 'by_user_id')->constrained('users');
             $table->dateTime('date_time');
             $table->foreignIdFor(Unit::class, 'unit_id')->constrained('units');
-            $table->longText('street');
-            $table->longText('barangay');
-            $table->longText('municipality');
-            $table->longText('province');
-            $table->longText('region');
-            $table->unsignedBigInteger('ap');
-            $table->unsignedBigInteger('aa');
-            $table->unsignedBigInteger('ua');
-            $table->text('type');
-            $table->text('special_category');
+            $table->longText('fullname');
+            $table->text('status');
         });
     }
 
@@ -40,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pro_actives');
+        Schema::dropIfExists('tamang_bihis');
     }
 };

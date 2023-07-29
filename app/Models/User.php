@@ -64,4 +64,16 @@ class User extends Authenticatable
     public function proactive() : HasMany {
         return $this->hasMany(ProActive::class, 'by_user_id');
     }
+    public function absent_personnel() : HasMany {
+        return $this->hasMany(AbsentPersonnel::class, 'by_user_id');
+    }
+    public function tamang_bihis() : HasMany {
+        return $this->hasMany(TamangBihis::class, 'by_user_id');
+    }
+    public function unit_infractions() : HasMany {
+        return $this->hasMany(UnitInfraction::class, 'by_user_id');
+    }
+    public function covid_infraction() : HasMany {
+        return $this->hasMany(CovidInfraction::class, 'by_user_id');
+    }
 }
