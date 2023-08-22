@@ -33,7 +33,7 @@
                         <div v-if="form.errors.unit_id" class="input-error">{{ form.errors.unit_id }}</div>
                     </div>
                     <div class="col-span-6">
-                        <label class="label">Action Taken</label>
+                        <label class="label">Infractions Noted</label>
                         <textarea name="" id="" cols="30" rows="3" v-model.number="form.infractions_noted" class="input-text" />
                         <div v-if="form.errors.infractions_noted" class="input-error">{{ form.errors.infractions_noted }}</div>
                     </div>
@@ -45,7 +45,7 @@
 
 
                     <div class="col-span-6 flex gap-2">
-                        <Link class="btn-normal" :href="route('unit_infraction.index')" type="button">Back</Link>
+                        <Link class="btn-normal" :href="route('covid_infraction.index')" type="button">Back</Link>
                         <button class="btn-primary" type="submit">Update</button>
                     </div>
                 </div>
@@ -62,19 +62,19 @@ const props = defineProps({
     inspecting_offices: Object,
     units: Object,
     page_name: String,
-    unit_infraction: Object
+    covid_infraction: Object
 })
 
 const form = useForm({
-    inspecting_office_id: props.unit_infraction.inspecting_office_id,
-    date_time:  props.unit_infraction.date_time,
-    fullname:  props.unit_infraction.fullname,
-    unit_id:  props.unit_infraction.unit_id,
-    infractions_noted:  props.unit_infraction.infractions_noted,
-    status:  props.unit_infraction.status,
+    inspecting_office_id: props.covid_infraction.inspecting_office_id,
+    date_time:  props.covid_infraction.date_time,
+    fullname:  props.covid_infraction.fullname,
+    unit_id:  props.covid_infraction.unit_id,
+    infractions_noted:  props.covid_infraction.infractions_noted,
+    status:  props.covid_infraction.status,
 });
 
-const update = () => form.put(route('unit_infraction.update', {unit_infraction: props.unit_infraction.id}), {
+const update = () => form.put(route('covid_infraction.update', {covid_infraction: props.covid_infraction.id}), {
     onSuccess: () => {
         form.inspecting_office_id =  null
         form.date_time =  null

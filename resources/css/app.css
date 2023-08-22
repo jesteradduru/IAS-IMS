@@ -11,6 +11,9 @@
     .label {
         @apply text-gray-600 mb-1 block w-full
     }
+    #main-nav .active {
+        @apply bg-indigo-700
+    }
     .input-text{
         @apply rounded-md text-gray-600 w-full block bg-gray-100 border border-gray-300   focus:border-0 
     }

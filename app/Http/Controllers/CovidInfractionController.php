@@ -62,17 +62,34 @@ class CovidInfractionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(CovidInfraction $covid_infraction)
     {
-        //
+        return inertia('CovidInfraction/Edit', [
+            'covid_infraction' => $covid_infraction,
+            "inspecting_offices" => InspectingOffice::get(),
+            "units" => Unit::get(),
+            'page_name' => 'Covid19 Infraction'
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, CovidInfraction $covid_infraction)
     {
-        //
+        $covid_infraction->update(
+            $request->validate([
+                "inspecting_office_id" => "int|required",
+                "unit_id" => "int|required",
+                "date_time" => "required",
+                "fullname" => "string|required",
+                "infractions_noted" => "string|required",
+                "status" => "string",
+            ])
+        );
+
+        return redirect()->route('covid_infraction.index')
+        ->with('success', 'Record Updated!');
     }
 
     /**

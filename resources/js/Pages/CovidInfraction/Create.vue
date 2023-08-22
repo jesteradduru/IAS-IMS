@@ -33,7 +33,7 @@
                         <div v-if="form.errors.unit_id" class="input-error">{{ form.errors.unit_id }}</div>
                     </div>
                     <div class="col-span-6">
-                        <label class="label">Action Taken</label>
+                        <label class="label">Infractions Noted</label>
                         <textarea name="" id="" cols="30" rows="3" v-model.number="form.infractions_noted" class="input-text" />
                         <div v-if="form.errors.infractions_noted" class="input-error">{{ form.errors.infractions_noted }}</div>
                     </div>

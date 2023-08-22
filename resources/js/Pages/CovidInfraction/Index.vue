@@ -30,7 +30,7 @@
                         <td class="px-4 py-2 border">{{ item.status }}</td>
                         <td class="px-4 py-2 border">
                             <div class="flex gap-2">
-                                <a :href="route('unit_infraction.edit', { unit_infraction: item.id })" class="btn-normal">Edit</a>
+                                <a :href="route('covid_infraction.edit', { covid_infraction: item.id })" class="btn-normal">Edit</a>
                                 <Link :href="route('covid_infraction.destroy', { covid_infraction: item.id })" method="delete" as="button" class="btn-danger">Delete</Link>
                             </div>
                         </td>

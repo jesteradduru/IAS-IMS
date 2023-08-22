@@ -76,4 +76,13 @@ class User extends Authenticatable
     public function covid_infraction() : HasMany {
         return $this->hasMany(CovidInfraction::class, 'by_user_id');
     }
+    public function awol() : HasMany {
+        return $this->hasMany(Awol::class, 'by_user_id');
+    }
+    public function awol_action_history() : HasMany {
+        return $this->hasMany(AwolActionHistory::class, 'by_user_id');
+    }
+    public function awol_status_history() : HasMany {
+        return $this->hasMany(AwolStatusHistory::class, 'by_user_id');
+    }
 }

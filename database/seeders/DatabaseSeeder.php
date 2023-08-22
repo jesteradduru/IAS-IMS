@@ -4,8 +4,12 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\TamangBihisViolation;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use App\Models\AwolStatusHistory;
+use App\Models\AwolStatusProcess;
+use App\Models\TamangBihisViolation;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -87,6 +91,37 @@ class DatabaseSeeder extends Seeder
                 'name' => trim($infraction)
             ]);
         }
+
+        $user = User::create([
+            'name' => 'Test Account',
+            'email' => 'test@mail.dev',
+            'password' => Hash::make('12345678'),
+        ]);
+
+        $status = array(
+            ["title" => "ADMIN", "description" => "Reported AWOL"],
+            ["title" => "NOTICE TO RTW", "description" => "After five days of AWOL, send notice to Return To Work (RTW): Issue order for stoppage of salary"],
+            ["title" => "REFERRAL TO PCI", "description" => "Send notice to respondent to submit explanation/counter-affidavit"],
+            ["title" => "DLOD/DLOS", "description" => "Referral to Summary Hearing Officer (SHO)"],
+            ["title" => "SHP", "description" => "Proceed to summary hearing proceedings"],
+            ["title" => "DLOD/DLOS", "description" => "Drafting of decision for administrative case; and Issue DFR order"],
+            ["title" => "DA", "description" => "Approval and Signature of the Disciplinary Authority"],
+            ["title" => "DLOD/DLOS", "description" => 'Proof of Service; Implementation of Decision; Section 95, Rule 19, RRACCS provides: "The order of separation is immediately executory pending appeal, unless the CSC, on meritorious grounds, directs otherwise."'],
+        );
+
+        foreach($status as $key=>$stat){
+            if($key + 1 == count($status)){
+                AwolStatusProcess::create([
+                    "title" => $stat['title'], "description" => $stat['description'], 'final' => true
+                ]);
+            }else{
+                AwolStatusProcess::create([
+                    "title" => $stat['title'], "description" => $stat['description']
+                ]);
+            }
+        }
+
+
 
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AbsentPersonnelController;
+use App\Http\Controllers\AwolController;
 use App\Http\Controllers\CovidInfractionController;
 use App\Http\Controllers\ProActiveController;
 use App\Http\Controllers\TamangBihisController;
@@ -46,6 +47,8 @@ Route::middleware([
     ]);
     Route::resource('unit_infraction', UnitInfractionController::class);
     Route::resource('covid_infraction', CovidInfractionController::class);
+
+    Route::resource('awol', AwolController::class);
 
 
 });
