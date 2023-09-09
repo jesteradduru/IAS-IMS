@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,7 +12,7 @@ class AwolActionHistory extends Model
     use HasFactory;
 
     protected $table = 'awol_action_history';
-    protected $fillable = ['description', 'awol_id'];
+    protected $fillable = ['description', 'awol_id', 'by_user_id'];
 
     public function awol() : BelongsTo {
         return $this->belongsTo(Awol::class, 'awol_id');
@@ -19,6 +20,10 @@ class AwolActionHistory extends Model
 
     public function user() : BelongsTo {
         return $this->belongsTo(User::class);
+    }
+
+    public function scopeRecentHistory(Builder $query) {
+        return $query->latest();
     }
 
 }
